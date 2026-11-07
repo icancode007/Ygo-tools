@@ -59,3 +59,20 @@ Retrieve examples by rule concept and applicability, not just matching card name
 Before publication, validate each catalog entry against its cited evidence. Keep evaluation cases separate from retrieval examples to avoid measuring memorization. Evaluate example relevance, correctness, and whether the explanation identifies the decisive condition.
 
 Status: this section specifies the planned feature; no reviewed card-interaction examples or example-selection implementation have been added yet.
+
+## Verification before a verdict
+
+Required behavior: understand the question before answering it. A brief second check is a reasoning checkpoint, not a fixed two-second delay or a guarantee that verification finishes within two seconds.
+
+Before any spoken or written ruling:
+1. Confirm the intended format, region, and historical snapshot. Resolve unfamiliar or ambiguous spoken format names with a source or a focused question. Never silently substitute a familiar format.
+2. Identify the cards and check their availability and legality in that snapshot before analyzing the interaction.
+3. Check that the relevant board state, turn, phase, and proposed action are understood. Clarify contradictions when they affect the ruling.
+4. Verify applicable card text and timing rules against relevant sources. Do not transfer a modern or OCG ruling into a historical TCG format without checking applicability.
+5. Only then give a verdict and supporting example. If essential facts remain unclear, use needs_clarification; if evidence is insufficient, use unresolved.
+
+This requirement applies to voice acknowledgments and progress updates as well as the final answer. Never precede clarification with a guessed verdict such as "allowed in Edison" when the user named an unrecognized format. The spoken response must preserve the uncertainty of the verified answer.
+
+Regression scenario: user says "Re-do format, summon Rescue Rabbit and call priority." Before resolving the unfamiliar format name, the assistant must not give a yes/no ruling or substitute Edison. Clarify or verify REDU, then check its card pool and ignition-effect timing. If Edison is explicitly requested, check Rabbit's release against the format cutoff before discussing priority.
+
+Status: documented behavior requirement; runtime enforcement and automated evaluation are not implemented yet.
